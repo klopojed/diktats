@@ -42,7 +42,7 @@ public class CsvParser implements Iterator<String[]> {
                 if (line == null) {
                     line = read;
                 } else {
-                    line += read;
+                    line += read + "\n";
                 }
             }
         } catch (IOException e) {
@@ -64,6 +64,9 @@ public class CsvParser implements Iterator<String[]> {
             result[i] = StringUtils.removeEnd(result[i], "\"");
             if ("\\t".equals(result[i])) {
                 result[i] = "";
+            }
+            if (i == 1) { // text
+                result[i] = StringUtils.replace(result[i], "\"\"", "\"");
             }
         }
         line = null;
