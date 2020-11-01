@@ -1,45 +1,32 @@
 package org.raksti.csv2docxzip.utils;
 
-import com.opencsv.CSVParser;
-import com.opencsv.CSVParserBuilder;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.raksti.csv2docxzip.model.SingleRow;
 
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Iterator;
 
 public class Extractor implements Iterator<SingleRow> {
-    private final CSVReader csvReader;
+    private final CsvParser csvParser;
 
     public Extractor(@NotNull InputStream inputStream) {
-        CSVParser csvParser = new CSVParserBuilder()
-                .withSeparator(';')
-                .withQuoteChar('\"')
-                .build();
-
-        this.csvReader = new CSVReaderBuilder(new InputStreamReader(inputStream))
-                .withCSVParser(csvParser)
-                .withKeepCarriageReturn(true)
-                .build();
+        this.csvParser = new CsvParser(inputStream);
     }
 
     @Override
     public boolean hasNext() {
-        return csvReader.iterator().hasNext();
+        return csvParser.hasNext();
     }
 
-    @Override
+    @Override @Nullable
     public SingleRow next() {
-        String[] next = csvReader.iterator().next();
-        while (!next[0].matches("^\\d*$")) {
-            System.out.println("Skipping id = " + next[0]);
+        String[] next = csvParser.next();
+        while (next == null || next.length < 24 || !next[0].matches("^\\d*$")) {
             if (hasNext()) {
-                next = csvReader.iterator().next();
+                next = csvParser.next();
             } else {
-                throw new IllegalStateException("No more data");
+                return null;
             }
         }
         return new SingleRow(next);

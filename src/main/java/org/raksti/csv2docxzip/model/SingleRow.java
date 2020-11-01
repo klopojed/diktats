@@ -4,6 +4,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
+/**
+ * Represents a single database record, one complete test with all necessary metadata.
+ * The test content can be found in "text" field
+ */
 @SuppressWarnings("unused")
 public class SingleRow {
     private final long id;

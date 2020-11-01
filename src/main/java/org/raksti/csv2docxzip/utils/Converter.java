@@ -1,6 +1,5 @@
 package org.raksti.csv2docxzip.utils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.docx4j.XmlUtils;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
@@ -18,13 +17,16 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Converts input lines to M$ Word documents.
+ */
 public class Converter {
 
     public byte[] convert(@NotNull SingleRow row) throws Docx4JException, IOException {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
 
         String text = row.getText();
-        String[] paragraphs = StringUtils.splitByWholeSeparatorPreserveAllTokens(text, "\n");
+        List<String> paragraphs = TextSplitter.extractParagraphs(text);
 
         try (InputStream resource = Converter.class.getResourceAsStream("/paraugs.docx")) {
             WordprocessingMLPackage wordPackage = WordprocessingMLPackage.load(resource);
@@ -38,7 +40,6 @@ public class Converter {
                     ((Text) (texts.get(0))).setValue(paragraph);
                 }
 
-                //mainDocumentPart.addParagraphOfText(paragraph + "\n");
                 mainDocumentPart.getContent().add(copy);
             }
 

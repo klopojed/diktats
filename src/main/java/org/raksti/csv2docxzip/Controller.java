@@ -23,9 +23,13 @@ public class Controller {
 
             while (extractor.hasNext()) {
                 SingleRow row = extractor.next();
-                zipper.add("" + row.getId() + ".docx", converter.convert(row));
-                System.out.println("Added: " + row.getId() + ".docx");
-                indexFile.add(row);
+                if (row != null) {
+                    zipper.add("" + row.getId() + ".docx", converter.convert(row));
+                    System.out.println("Added: " + row.getId() + ".docx");
+                    indexFile.add(row);
+                } else {
+                    break;
+                }
             }
 
             zipper.add("index.xlsx", indexFile.getBytes());
