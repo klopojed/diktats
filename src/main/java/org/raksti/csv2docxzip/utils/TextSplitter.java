@@ -28,7 +28,6 @@ public class TextSplitter {
     public static List<String> extractParagraphs(@NotNull String text) {
         text = StringUtils.replace(text, "<p>", "\n");
         text = StringUtils.replace(text, "</p>", "\n");
-        System.out.println(text);
         String[] split = StringUtils.splitByWholeSeparatorPreserveAllTokens(text, "\n");
         return Arrays.stream(split).filter(StringUtils::isNotBlank).collect(Collectors.toList());
     }

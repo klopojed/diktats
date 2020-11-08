@@ -1,5 +1,6 @@
 package org.raksti.csv2docxzip.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -28,7 +29,8 @@ public class IndexFile {
         //        + singleRow.getLastName() + "," + singleRow.getEmail() + "\n";
         addRow(Arrays.asList(Long.toString(singleRow.getId()), singleRow.getFirstNames(), singleRow.getLastName(), singleRow.getAge(),
                 singleRow.getCountry(), singleRow.getCity(), singleRow.getEmail(), singleRow.getPhone(),
-                singleRow.getLanguage(), singleRow.getEducation()));
+                singleRow.getLanguage(), singleRow.getEducation(),
+                StringUtils.remove(singleRow.getEducationDegree().trim(), "\"")));
     }
 
     public byte[] getBytes() throws IOException {

@@ -34,7 +34,7 @@ public class CsvParser implements Iterator<String[]> {
     private void readLine() {
         try {
             String read = "";
-            while (!read.endsWith("\"") && !read.endsWith("\\t")) {
+            while (!read.endsWith("\"") && !read.endsWith("\\t") && !read.endsWith(";")) {
                 read = reader.readLine();
                 if (read == null) {
                     return;
