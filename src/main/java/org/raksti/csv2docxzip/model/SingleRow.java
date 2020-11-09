@@ -23,8 +23,9 @@ public class SingleRow {
     private final String language;
     private final String education;
     private final String educationDegree;
+    private final String gender;
 
-    public SingleRow(long id, String text, String firstNames, String lastName, String email, String age, String country, String city, String phone, String language, String education, String educationDegree) {
+    public SingleRow(long id, String text, String firstNames, String lastName, String email, String age, String country, String city, String phone, String gender, String language, String education, String educationDegree) {
         this.id = id;
         this.email = email;
         this.text = text;
@@ -37,11 +38,12 @@ public class SingleRow {
         this.language = language;
         this.education = education;
         this.educationDegree = educationDegree;
+        this.gender = gender;
         this.uuid = UUID.randomUUID();
     }
 
     public SingleRow(@NotNull String[] row) {
-        this(Long.parseLong(row[0]), row[1], row[2], row[3], row[4], row[5], row[12], row[13], row[20], row[34], row[35], (row.length < 37 ? "" : row[36]));
+        this(Long.parseLong(row[0]), row[1], row[2], row[3], row[4], row[5], row[12], row[13], row[20], row[21], row[34], row[35], (row.length < 37 ? "" : row[36]));
     }
 
     public String getEmail() {
@@ -94,5 +96,9 @@ public class SingleRow {
 
     public String getEducationDegree() {
         return educationDegree;
+    }
+
+    public String getGender() {
+        return gender;
     }
 }

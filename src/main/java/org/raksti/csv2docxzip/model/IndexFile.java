@@ -13,28 +13,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class IndexFile {
-    //private String list = "";
-
     private final Workbook workbook = new XSSFWorkbook();
     private final Sheet sheet;
     private int index = 0;
 
     public IndexFile() {
         sheet = workbook.createSheet();
-        addRow(Arrays.asList("id", "first names", "last name", "age", "country", "city", "e-mail", "phone", "language", "education"));
+        addRow(Arrays.asList("id", "first names", "last name", "age", "country", "city", "e-mail", "phone", "gender", "language", "education"));
     }
 
     public void add(SingleRow singleRow) {
-        //list += singleRow.getUuid() + "," + singleRow.getId() + "," + singleRow.getFirstNames() + ","
-        //        + singleRow.getLastName() + "," + singleRow.getEmail() + "\n";
         addRow(Arrays.asList(Long.toString(singleRow.getId()), singleRow.getFirstNames(), singleRow.getLastName(), singleRow.getAge(),
-                singleRow.getCountry(), singleRow.getCity(), singleRow.getEmail(), singleRow.getPhone(),
+                singleRow.getCountry(), singleRow.getCity(), singleRow.getEmail(), singleRow.getPhone(), singleRow.getGender(),
                 singleRow.getLanguage(), singleRow.getEducation(),
                 StringUtils.remove(singleRow.getEducationDegree().trim(), "\"")));
     }
 
     public byte[] getBytes() throws IOException {
-        //return list.getBytes();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         workbook.write(outputStream);
         workbook.close();
