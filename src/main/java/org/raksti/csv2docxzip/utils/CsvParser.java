@@ -30,11 +30,10 @@ public class CsvParser implements Iterator<String[]> {
         return line != null;
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void readLine() {
         try {
-            String read = "";
-            while (!read.endsWith("\"") && !read.endsWith("\\t") && !read.endsWith(";")) {
+            String read;
+            while (StringUtils.countMatches(line, ";") < 28) {
                 read = reader.readLine();
                 if (read == null) {
                     return;
