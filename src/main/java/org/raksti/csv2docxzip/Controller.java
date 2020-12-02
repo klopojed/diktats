@@ -11,6 +11,7 @@ import org.raksti.csv2docxzip.utils.Zipper;
 import java.io.*;
 
 public class Controller {
+    public static int EXPECTED_FIELDS_COUNT = 28;
 
     public void process(@NotNull File file) throws Exception {
 

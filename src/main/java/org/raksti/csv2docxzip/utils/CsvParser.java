@@ -3,6 +3,7 @@ package org.raksti.csv2docxzip.utils;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.raksti.csv2docxzip.Controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class CsvParser implements Iterator<String[]> {
     private void readLine() {
         try {
             String read;
-            while (StringUtils.countMatches(line, ";") < 28) {
+            while (StringUtils.countMatches(line, ";") < Controller.EXPECTED_FIELDS_COUNT) {
                 read = reader.readLine();
                 if (read == null) {
                     return;
